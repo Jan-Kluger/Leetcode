@@ -10,8 +10,11 @@ module Solution = struct
         let new_map = IntMap.add x (count + 1) map in
         helper_oc xs new_map
       | [] -> 
-        let (map_table : string) = IntMap.fold (fun num count acc -> acc ^ "value: " ^ string_of_int num ^ " : " ^ string_of_int count ^ "\n") map "" in
-        Printf.printf "%s" map_table;
+        let values = IntMap.bindings map |> List.fold_left 
+        (fun acc binding -> 
+          match binding with
+        | (k,v) -> acc ^ string_of_int k ^ " : " ^ string_of_int v ^ "\n") "" in
+        Printf.printf "%s" values;
         failwith "todo"
 
     in
