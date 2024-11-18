@@ -10,16 +10,12 @@ module Solution = struct
         let new_map = IntMap.add x (count + 1) map in
         helper_oc xs new_map
       | [] -> 
-        let values = IntMap.bindings map |> List.fold_left 
-        (fun acc binding -> 
-          match binding with
-        | (k,v) -> acc ^ string_of_int k ^ " : " ^ string_of_int v ^ "\n") "" in
-        Printf.printf "%s" values;
-        failwith "todo"
-
+        let values = IntMap.bindings map |> List.map snd in
+        let unique_values = List.sort_uniq compare values in 
+        values = unique_values
     in
     helper_oc arr empty_map
 end
 
 let () =
-  print_endline (string_of_bool (Solution.uniqueOccurrences [1;2;3]))
+  print_endline (string_of_bool (Solution.uniqueOccurrences [1;2;2]))
